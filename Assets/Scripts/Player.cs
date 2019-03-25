@@ -6,22 +6,23 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] Sprite[] walking;
+    bool grounded = false;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        MoveHorizontal();
+        MoveVertical(); 
     }
 
-    private void Move()
+    private void MoveHorizontal()
     {
         var deltaX = Input.GetAxis("Horizontal");
-        var newXPos = transform.position.x + deltaX/8;
+        var newXPos = transform.position.x + deltaX / 8;
         transform.position = new Vector2(newXPos, transform.position.y);
         if (deltaX > 0)
         {
@@ -35,6 +36,26 @@ public class Player : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = walking[0];
         }
+    }
+    private void MoveVertical()
+    {
+        if(Input.GetKeyDown(KeyCode.UpArrow) && grounded == true)
+        {
+            
+        }
+        
+        // if (deltaY > 0)
+        // {
+        //     AnimatePlayerWalkingRight();
+        // }
+        // else if (deltaX < 0)
+        // {
+        //     AnimatePlayerWalkingLeft();
+        // }
+        // else
+        // {
+        //     GetComponent<SpriteRenderer>().sprite = walking[0];
+        // }
     }
 
     private void AnimatePlayerWalkingRight()
@@ -60,5 +81,10 @@ public class Player : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = walking[4];
         }
+    }
+
+    public void GroundPlayer()
+    {
+        grounded = true;
     }
 }

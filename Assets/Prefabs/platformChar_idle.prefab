@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1862131136877608802}
   - component: {fileID: 6948612114506094286}
   - component: {fileID: 8381966652742624222}
+  - component: {fileID: 7473100882215278244}
   m_Layer: 0
   m_Name: platformChar_idle
   m_TagString: Untagged
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1f717ec96a66245de8975e93c639af9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -150,4 +151,22 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &7473100882215278244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7473100882215278241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5dcc44003bcd4463b4b089ace255b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walking:
+  - {fileID: 21300000, guid: 1f717ec96a66245de8975e93c639af9a, type: 3}
+  - {fileID: 21300000, guid: adaa9ad5d1e594ba79f9953e778413d3, type: 3}
+  - {fileID: 21300000, guid: 9c5a3c1b929534854bcf6d463186ad75, type: 3}
+  - {fileID: 21300000, guid: 4e3c1882888c7420bb5b2f76e5e9f919, type: 3}
+  - {fileID: 21300000, guid: cd0ba3a4411c241ecb8340c5fe1b8d6d, type: 3}
