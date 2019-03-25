@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] Sprite[] walking;
     bool grounded = false;
+    Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.UpArrow) && grounded == true)
         {
-            
+            rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
         }
         
         // if (deltaY > 0)
