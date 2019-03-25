@@ -6,7 +6,12 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] Sprite[] walking;
+    [SerializeField] Sprite[] idle;
+    [SerializeField] Sprite[] jumping;
+
+
     bool grounded = false;
+    bool movingRight = true;
     Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,7 @@ public class Player : MonoBehaviour
     {
         MoveHorizontal();
         MoveVertical(); 
+        Debug.Log(grounded);
     }
 
     private void MoveHorizontal()
@@ -26,67 +32,74 @@ public class Player : MonoBehaviour
         var deltaX = Input.GetAxis("Horizontal");
         var newXPos = transform.position.x + deltaX / 8;
         transform.position = new Vector2(newXPos, transform.position.y);
-        if (deltaX > 0)
+        if (deltaX > 0 && grounded)
         {
             AnimatePlayerWalkingRight();
+            movingRight = true;
         }
-        else if (deltaX < 0)
+        else if (deltaX < 0 && grounded)
         {
             AnimatePlayerWalkingLeft();
+            movingRight = false;
         }
-        else
+        else if (movingRight && grounded)
         {
-            GetComponent<SpriteRenderer>().sprite = walking[0];
+            GetComponent<SpriteRenderer>().sprite = idle[0];
+        }
+        else if (!movingRight && grounded)
+        {
+            GetComponent<SpriteRenderer>().sprite = idle[1];
         }
     }
     private void MoveVertical()
     {
         if(Input.GetKeyDown(KeyCode.UpArrow) && grounded == true)
         {
+            grounded = false;
             rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
+            AnimatePLayerJumping();
         }
-        
-        // if (deltaY > 0)
-        // {
-        //     AnimatePlayerWalkingRight();
-        // }
-        // else if (deltaX < 0)
-        // {
-        //     AnimatePlayerWalkingLeft();
-        // }
-        // else
-        // {
-        //     GetComponent<SpriteRenderer>().sprite = walking[0];
-        // }
     }
 
     private void AnimatePlayerWalkingRight()
     {
         Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
-        if (playerSprite != walking[1])
+        if (playerSprite != walking[0])
+        {
+            GetComponent<SpriteRenderer>().sprite = walking[0];
+        } 
+        else if (playerSprite == walking[0]) 
         {
             GetComponent<SpriteRenderer>().sprite = walking[1];
-        } 
-        else if (playerSprite == walking[1]) 
-        {
-            GetComponent<SpriteRenderer>().sprite = walking[2];
         }
     }
      private void AnimatePlayerWalkingLeft()
     {
         Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
-        if (playerSprite != walking[3])
+        if (playerSprite != walking[2])
+        {
+            GetComponent<SpriteRenderer>().sprite = walking[2];
+        } 
+        else if (playerSprite == walking[2]) 
         {
             GetComponent<SpriteRenderer>().sprite = walking[3];
-        } 
-        else if (playerSprite == walking[3]) 
-        {
-            GetComponent<SpriteRenderer>().sprite = walking[4];
         }
     }
 
-    public void GroundPlayer()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         grounded = true;
+    }
+
+    private void AnimatePLayerJumping()
+    {
+        if (movingRight && !grounded)
+        {
+            GetComponent<SpriteRenderer>().sprite = jumping[0];
+        }
+        else if (!movingRight && !grounded)
+        {
+            GetComponent<SpriteRenderer>().sprite = jumping[1];
+        }
     }
 }
