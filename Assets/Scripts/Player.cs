@@ -44,11 +44,11 @@ public class Player : MonoBehaviour
         }
         else if (movingRight && grounded)
         {
-            GetComponent<SpriteRenderer>().sprite = idle[0];
+            ChangeSprite(idle, 0);
         }
         else if (!movingRight && grounded)
         {
-            GetComponent<SpriteRenderer>().sprite = idle[1];
+            ChangeSprite(idle, 1);
         }
     }
     private void MoveVertical()
@@ -66,11 +66,11 @@ public class Player : MonoBehaviour
         Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
         if (playerSprite != walking[0])
         {
-            GetComponent<SpriteRenderer>().sprite = walking[0];
+            ChangeSprite(walking, 0);
         } 
         else if (playerSprite == walking[0]) 
         {
-            GetComponent<SpriteRenderer>().sprite = walking[1];
+            ChangeSprite(walking, 1);
         }
     }
      private void AnimatePlayerWalkingLeft()
@@ -78,11 +78,11 @@ public class Player : MonoBehaviour
         Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
         if (playerSprite != walking[2])
         {
-            GetComponent<SpriteRenderer>().sprite = walking[2];
+            ChangeSprite(walking, 2);
         } 
         else if (playerSprite == walking[2]) 
         {
-            GetComponent<SpriteRenderer>().sprite = walking[3];
+            ChangeSprite(walking, 3);
         }
     }
 
@@ -95,11 +95,16 @@ public class Player : MonoBehaviour
     {
         if (movingRight && !grounded)
         {
-            GetComponent<SpriteRenderer>().sprite = jumping[0];
+            ChangeSprite(jumping, 0);
         }
         else if (!movingRight && !grounded)
         {
-            GetComponent<SpriteRenderer>().sprite = jumping[1];
+            ChangeSprite(jumping, 1);
         }
+    }
+
+    private void ChangeSprite(Sprite[] action, int index)
+    {
+        GetComponent<SpriteRenderer>().sprite = action[index];
     }
 }
