@@ -14,7 +14,7 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        float playerPosX = Mathf.Clamp(player.transform.position.x, 9, 31);
+        float playerPosX = Mathf.Clamp(player.transform.position.x, 9, 41);
         transform.position = new Vector3(playerPosX, transform.position.y, transform.position.z);
         
     }
