@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     bool grounded = false;
     bool movingRight = true;
+    bool canClimb = false;
     Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     {
         MoveHorizontal();
         MoveVertical(); 
-        Debug.Log(grounded);
+        // Debug.Log(canClimb);
     }
 
     private void MoveHorizontal()
@@ -53,11 +54,17 @@ public class Player : MonoBehaviour
     }
     private void MoveVertical()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow) && grounded == true)
+        if(Input.GetKeyDown(KeyCode.UpArrow) && grounded && !canClimb)
         {
             grounded = false;
             rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
             AnimatePLayerJumping();
+        }
+        else if (canClimb)
+        {
+            var deltaY = Input.GetAxis("Vertical");
+            var newYPos = transform.position.y + deltaY / 10;
+            transform.position = new Vector2(transform.position.x, newYPos);
         }
     }
 
@@ -106,5 +113,28 @@ public class Player : MonoBehaviour
     private void ChangeSprite(Sprite[] action, int index)
     {
         GetComponent<SpriteRenderer>().sprite = action[index];
+    }
+
+    public void SetCanClimbTrue()
+    {
+        canClimb = true;
+    }
+
+      public void SetCanClimbFalse()
+    {
+        canClimb = false;
+    }
+
+    public void ClimbingLadder()
+    {
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponent<Rigidbody2D>().mass = 0;
+    }
+
+    public void LeavingLadder()
+    {
+        GetComponent<Rigidbody2D>().gravityScale = 1;
+        GetComponent<Rigidbody2D>().mass = 1;
+
     }
 }
