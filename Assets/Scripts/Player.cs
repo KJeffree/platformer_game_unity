@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     bool movingRight = true;
     bool canClimb = false;
     Rigidbody2D rigidBody;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -115,26 +116,17 @@ public class Player : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = action[index];
     }
 
-    public void SetCanClimbTrue()
-    {
-        canClimb = true;
-    }
-
-      public void SetCanClimbFalse()
-    {
-        canClimb = false;
-    }
-
     public void ClimbingLadder()
     {
-        GetComponent<Rigidbody2D>().gravityScale = 0;
-        GetComponent<Rigidbody2D>().mass = 0;
+        rigidBody.gravityScale = 0;
+        rigidBody.velocity = new Vector2(0,0);
+        canClimb = true;
+        // transform.position = new Vector2();       
     }
 
     public void LeavingLadder()
     {
         GetComponent<Rigidbody2D>().gravityScale = 1;
-        GetComponent<Rigidbody2D>().mass = 1;
-
+        canClimb = false;
     }
 }

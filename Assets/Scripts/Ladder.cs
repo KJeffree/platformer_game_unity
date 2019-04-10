@@ -20,15 +20,11 @@ public class Ladder : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("colliding!");
-        player.SetCanClimbTrue();
         player.ClimbingLadder();
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        Debug.Log("Not colliding!");
-        player.SetCanClimbFalse();
         player.LeavingLadder();
     }
 }
