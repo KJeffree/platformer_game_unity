@@ -5823,6 +5823,11 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[18].x
       value: -0.25919712
       objectReference: {fileID: 0}
+    - target: {fileID: 7473100882215278244, guid: 9d29153d23ac444219ec330a2515e991,
+        type: 3}
+      propertyPath: ladderCollider
+      value: 
+      objectReference: {fileID: 1364507038}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d29153d23ac444219ec330a2515e991, type: 3}
 --- !u!1001 &1848847949112305110
