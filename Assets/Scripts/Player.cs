@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] Sprite[] idle;
     [SerializeField] Sprite[] jumping;
 
+    float speed = 10.00f;
+
 
     bool grounded = false;
     bool movingRight = true;
@@ -25,32 +27,32 @@ public class Player : MonoBehaviour
     void Update()
     {
         MoveHorizontal();
-        MoveVertical(); 
-        // Debug.Log(canClimb);
+        MoveVertical();
     }
 
     private void MoveHorizontal()
     {
-        var deltaX = Input.GetAxis("Horizontal");
-        var newXPos = transform.position.x + deltaX / 8;
-        transform.position = new Vector2(newXPos, transform.position.y);
+        var deltaX = Input.GetAxis("Horizontal") * speed;
+        var movement = deltaX *= Time.deltaTime;
+        transform.Translate(movement, 0, 0);
+        
         if (deltaX > 0 && grounded)
         {
-            AnimatePlayerWalkingRight();
+            // AnimatePlayerWalkingRight();
             movingRight = true;
         }
         else if (deltaX < 0 && grounded)
         {
-            AnimatePlayerWalkingLeft();
+            // AnimatePlayerWalkingLeft();
             movingRight = false;
         }
         else if (movingRight && grounded)
         {
-            ChangeSprite(idle, 0);
+            // ChangeSprite(idle, 0);
         }
         else if (!movingRight && grounded)
         {
-            ChangeSprite(idle, 1);
+            // ChangeSprite(idle, 1);
         }
     }
     private void MoveVertical()
@@ -59,7 +61,7 @@ public class Player : MonoBehaviour
         {
             grounded = false;
             rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
-            AnimatePLayerJumping();
+            // AnimatePLayerJumping();
         }
         else if (canClimb)
         {
@@ -69,52 +71,52 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AnimatePlayerWalkingRight()
-    {
-        Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
-        if (playerSprite != walking[0])
-        {
-            ChangeSprite(walking, 0);
-        } 
-        else if (playerSprite == walking[0]) 
-        {
-            ChangeSprite(walking, 1);
-        }
-    }
-     private void AnimatePlayerWalkingLeft()
-    {
-        Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
-        if (playerSprite != walking[2])
-        {
-            ChangeSprite(walking, 2);
-        } 
-        else if (playerSprite == walking[2]) 
-        {
-            ChangeSprite(walking, 3);
-        }
-    }
+    // private void AnimatePlayerWalkingRight()
+    // {
+    //     Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
+    //     if (playerSprite != walking[0])
+    //     {
+    //         ChangeSprite(walking, 0);
+    //     } 
+    //     else if (playerSprite == walking[0]) 
+    //     {
+    //         ChangeSprite(walking, 1);
+    //     }
+    // }
+    //  private void AnimatePlayerWalkingLeft()
+    // {
+    //     Sprite playerSprite = GetComponent<SpriteRenderer>().sprite;
+    //     if (playerSprite != walking[2])
+    //     {
+    //         ChangeSprite(walking, 2);
+    //     } 
+    //     else if (playerSprite == walking[2]) 
+    //     {
+    //         ChangeSprite(walking, 3);
+    //     }
+    // }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         grounded = true;
     }
 
-    private void AnimatePLayerJumping()
-    {
-        if (movingRight && !grounded)
-        {
-            ChangeSprite(jumping, 0);
-        }
-        else if (!movingRight && !grounded)
-        {
-            ChangeSprite(jumping, 1);
-        }
-    }
+    // private void AnimatePLayerJumping()
+    // {
+    //     if (movingRight && !grounded)
+    //     {
+    //         ChangeSprite(jumping, 0);
+    //     }
+    //     else if (!movingRight && !grounded)
+    //     {
+    //         ChangeSprite(jumping, 1);
+    //     }
+    // }
 
-    private void ChangeSprite(Sprite[] action, int index)
-    {
-        GetComponent<SpriteRenderer>().sprite = action[index];
-    }
+    // private void ChangeSprite(Sprite[] action, int index)
+    // {
+    //     GetComponent<SpriteRenderer>().sprite = action[index];
+    // }
 
     public void ClimbingLadder()
     {
