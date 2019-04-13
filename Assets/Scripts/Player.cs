@@ -5,11 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField] Sprite[] walking;
-    [SerializeField] Sprite[] idle;
-    [SerializeField] Sprite[] jumping;
+    //[SerializeField] Sprite[] walking;
+    //[SerializeField] Sprite[] idle;
+    //[SerializeField] Sprite[] jumping;
 
     float speed = 10.00f;
+    Animator animator;
 
 
     bool grounded = false;
@@ -21,13 +22,42 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveHorizontal();
         MoveVertical();
+        MoveHorizontal();
+
+        //var vertical = Input.GetAxis("Vertical");
+        //var horizontal = Input.GetAxis("Horizontal");
+
+        //if (vertical == 0 && horizontal == 0)
+        //{
+        //    animator.SetInteger("Action", 0);
+        //}
+        //else if (vertical == 0 && horizontal > 0)
+        //{
+        //    animator.SetInteger("Action", 1);
+        //}
+        //else if (vertical == 0 && horizontal < 0)
+        //{
+        //    animator.SetInteger("Action", 2);
+        //}
+        //else if (vertical != 0 && horizontal > 0)
+        //{
+        //    animator.SetInteger("Action", 4);
+        //}
+        //else if (vertical != 0 && horizontal < 0)
+        //{
+        //    animator.SetInteger("Action", 5);
+        //}
+        //else if (canClimb & horizontal == 0)
+        //{
+        //    animator.SetInteger("Action", 3);
+        //}
     }
 
     private void MoveHorizontal()
@@ -38,21 +68,22 @@ public class Player : MonoBehaviour
         
         if (deltaX > 0 && grounded)
         {
-            // AnimatePlayerWalkingRight();
+            animator.SetInteger("Action", 1);
             movingRight = true;
         }
         else if (deltaX < 0 && grounded)
         {
-            // AnimatePlayerWalkingLeft();
+            animator.SetInteger("Action", 2);
             movingRight = false;
         }
         else if (movingRight && grounded)
         {
-            // ChangeSprite(idle, 0);
+            animator.SetInteger("Action", 0);
         }
         else if (!movingRight && grounded)
         {
-            // ChangeSprite(idle, 1);
+            animator.SetInteger("Action", 0);
+
         }
     }
     private void MoveVertical()
@@ -61,13 +92,22 @@ public class Player : MonoBehaviour
         {
             grounded = false;
             rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
-            // AnimatePLayerJumping();
+             AnimatePLayerJumping();
         }
         else if (canClimb)
         {
             var deltaY = Input.GetAxis("Vertical");
             var newYPos = transform.position.y + deltaY / 10;
             transform.position = new Vector2(transform.position.x, newYPos);
+            AnimatePlayerClimbing();
+        }
+    }
+
+    private void AnimatePlayerClimbing()
+    {
+        if (canClimb && !grounded)
+        {
+            animator.SetInteger("Action", 3);
         }
     }
 
@@ -101,17 +141,17 @@ public class Player : MonoBehaviour
         grounded = true;
     }
 
-    // private void AnimatePLayerJumping()
-    // {
-    //     if (movingRight && !grounded)
-    //     {
-    //         ChangeSprite(jumping, 0);
-    //     }
-    //     else if (!movingRight && !grounded)
-    //     {
-    //         ChangeSprite(jumping, 1);
-    //     }
-    // }
+     private void AnimatePLayerJumping()
+     {
+         if (movingRight && !grounded)
+         {
+            animator.SetInteger("Action", 4);
+         }
+        else if (!movingRight && !grounded)
+         {
+            animator.SetInteger("Action", 5);
+         }
+    }
 
     // private void ChangeSprite(Sprite[] action, int index)
     // {
