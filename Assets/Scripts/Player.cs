@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             movingRight = false;
             animator.SetInteger("Action", 5);
         }
-        else if (canClimb)
+        else if (canClimb && vertical != 0)
         {
             MoveVertical();
             MoveHorizontal();
