@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.UpArrow) && grounded && !canClimb)
         {
             grounded = false;
-            rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
+            rigidBody.AddForce(new Vector3(0, 6, 0), ForceMode2D.Impulse);
         }
         else if (canClimb)
         {
