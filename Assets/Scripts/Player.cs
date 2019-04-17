@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
         {
             MoveVertical();
         }
-
-
         var horizontal = Input.GetAxis("Horizontal");
 
         if (!grounded && movingRight && !canClimb)
@@ -108,7 +106,10 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        grounded = false;
+        if (rigidBody.velocity.y != 0)
+        {
+            grounded = false;
+        }
     }
 
     public void ClimbingLadder()
