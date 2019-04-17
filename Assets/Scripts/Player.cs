@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    //[SerializeField] Sprite[] walking;
-    //[SerializeField] Sprite[] idle;
-    //[SerializeField] Sprite[] jumping;
-
     float speed = 10.00f;
     Animator animator;
 
@@ -103,7 +98,6 @@ public class Player : MonoBehaviour
         rigidBody.gravityScale = 0;
         rigidBody.velocity = new Vector2(0,0);
         canClimb = true;
-        // transform.position = new Vector2();       
     }
 
     public void LeavingLadder()
