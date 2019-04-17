@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     bool grounded = false;
     bool movingRight = true;
     bool canClimb = false;
+
+    // bool hitWall = false;
     Rigidbody2D rigidBody;
 
     // Start is called before the first frame update
@@ -27,9 +29,29 @@ public class Player : MonoBehaviour
         // MoveHorizontal();
 
         var vertical = Input.GetAxis("Vertical");
+        if (vertical != 0)
+        {
+            MoveVertical();
+        }
+
+
         var horizontal = Input.GetAxis("Horizontal");
 
-        if (vertical == 0 && horizontal == 0)
+        if (!grounded && movingRight && !canClimb)
+        {
+            MoveVertical();
+            MoveHorizontal();
+            movingRight = true;
+            animator.SetInteger("Action", 4);
+        }
+        else if (!grounded && !movingRight && !canClimb)
+        {
+            MoveVertical();
+            MoveHorizontal();
+            movingRight = false;
+            animator.SetInteger("Action", 5);
+        }
+        else if (vertical == 0 && horizontal == 0)
         {
            animator.SetInteger("Action", 0);
         }
@@ -37,27 +59,13 @@ public class Player : MonoBehaviour
         {
             MoveHorizontal();
             movingRight = true;
-           animator.SetInteger("Action", 1);
+            animator.SetInteger("Action", 1);
         }
         else if (vertical == 0 && horizontal < 0)
         {
             MoveHorizontal();
             movingRight = false;
             animator.SetInteger("Action", 2);
-        }
-        else if (vertical != 0 && movingRight && !canClimb)
-        {
-            MoveVertical();
-            MoveHorizontal();
-            movingRight = true;
-            animator.SetInteger("Action", 4);
-        }
-        else if (vertical != 0 && !movingRight && !canClimb)
-        {
-            MoveVertical();
-            MoveHorizontal();
-            movingRight = false;
-            animator.SetInteger("Action", 5);
         }
         else if (canClimb && vertical != 0)
         {
@@ -77,7 +85,6 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.UpArrow) && grounded && !canClimb)
         {
-            grounded = false;
             rigidBody.AddForce(new Vector3(0, 6, 0), ForceMode2D.Impulse);
         }
         else if (canClimb)
@@ -88,9 +95,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    // public void HitWall()
+    // {
+    //     hitWall = true;
+    // }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         grounded = true;
+        animator.SetInteger("Action", 0);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        grounded = false;
     }
 
     public void ClimbingLadder()
