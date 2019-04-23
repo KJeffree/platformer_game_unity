@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         {
             var deltaY = Input.GetAxis("Vertical");
             var newYPos = transform.position.y + deltaY / 10;
-            transform.position = new Vector2(transform.position.x, newYPos);
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
         }
     }
 

@@ -6,9 +6,11 @@ public class Collectable : MonoBehaviour
 {
 
     Level level;
+    GameSession gameSession;
     // Start is called before the first frame update
     void Start()
     {
+        level = FindObjectOfType<Level>();
         CountCollectableGems();
     }
 
@@ -22,11 +24,12 @@ public class Collectable : MonoBehaviour
     {
         Destroy(gameObject);
         level.RemoveGem();
+        level.AddCollectedGem(GetComponent<SpriteRenderer>().sprite);
+
     }
 
     private void CountCollectableGems()
     {
-        level = FindObjectOfType<Level>();
         if (tag == "CollectableGem")
         {
             level.CountGems();
