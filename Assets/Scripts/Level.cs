@@ -36,21 +36,12 @@ public class Level : MonoBehaviour
 
     public void AddCollectedGem(Sprite collectedGem)
     {
-        if (collectedGem == availableGems[0])
+        for (int i = 0; i < availableGems.Length; i++)
         {
-            gemTracker[0].GetComponent<UnityEngine.UI.Image>().sprite = collectedGem;
-        }
-        else if (collectedGem == availableGems[1])
-        {
-            gemTracker[1].GetComponent<UnityEngine.UI.Image>().sprite = collectedGem;
-        }
-        else if (collectedGem == availableGems[2])
-        {
-            gemTracker[2].GetComponent<UnityEngine.UI.Image>().sprite = collectedGem;
-        }
-        else if (collectedGem == availableGems[3])
-        {
-            gemTracker[3].GetComponent<UnityEngine.UI.Image>().sprite = collectedGem;
+            if (collectedGem == availableGems[i])
+            {
+                gemTracker[i].GetComponent<UnityEngine.UI.Image>().sprite = collectedGem;
+            }
         }
     }
 }

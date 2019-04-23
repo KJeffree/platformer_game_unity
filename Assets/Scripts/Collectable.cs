@@ -25,7 +25,7 @@ public class Collectable : MonoBehaviour
         Destroy(gameObject);
         level.RemoveGem();
         level.AddCollectedGem(GetComponent<SpriteRenderer>().sprite);
-
+        Debug.Log(GetComponent<SpriteRenderer>().sprite);
     }
 
     private void CountCollectableGems()
