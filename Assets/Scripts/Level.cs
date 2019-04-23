@@ -5,34 +5,35 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
 
-    [SerializeField] int collectableGems;
+    // [SerializeField] int collectableGems;
+    // [SerializeField] int collectableKeys;
     [SerializeField] GameObject[] gemTracker;
+    [SerializeField] GameObject[] keyTracker;
 
     [SerializeField] Sprite[] availableGems;
+    [SerializeField] Sprite[] availableKeys;
 
+    [SerializeField] Lock[] availableLocks;
 
+    // public void CountGems()
+    // {
+    //     collectableGems++;
+    // }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // public void CountKeys()
+    // {
+    //     collectableKeys++;
+    // }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // public void RemoveGem()
+    // {
+    //     collectableGems--;
+    // }
 
-    public void CountGems()
-    {
-        collectableGems++;
-    }
-
-    public void RemoveGem()
-    {
-        collectableGems--;
-    }
+    // public void RemoveKey()
+    // {
+    //     collectableKeys--;
+    // }
 
     public void AddCollectedGem(Sprite collectedGem)
     {
@@ -43,5 +44,27 @@ public class Level : MonoBehaviour
                 gemTracker[i].GetComponent<UnityEngine.UI.Image>().sprite = collectedGem;
             }
         }
+    }
+
+    public void AddCollectedKey(Sprite collectedKey)
+    {
+        for (int i = 0; i < availableKeys.Length; i++)
+        {
+            if (collectedKey == availableKeys[i])
+            {
+                keyTracker[i].GetComponent<UnityEngine.UI.Image>().sprite = collectedKey;
+            }
+        }
+    }
+
+    public void UnlockLock(Sprite key)
+    {
+       for (int i = 0; i < availableKeys.Length; i++)
+       {
+           if (key == availableKeys[i])
+           {
+               availableLocks[i].UnlockLock();
+           }
+       }
     }
 }

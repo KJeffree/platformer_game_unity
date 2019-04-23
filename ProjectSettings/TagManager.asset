@@ -6,6 +6,10 @@ TagManager:
   tags:
   - CollectableGem
   - CollectableKey
+  - RedLock
+  - GreenLock
+  - BlueLock
+  - YellowLock
   layers:
   - Default
   - TransparentFX

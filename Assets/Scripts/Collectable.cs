@@ -11,7 +11,7 @@ public class Collectable : MonoBehaviour
     void Start()
     {
         level = FindObjectOfType<Level>();
-        CountCollectableGems();
+        // CountCollectableGems();
     }
 
     // Update is called once per frame
@@ -23,16 +23,39 @@ public class Collectable : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Destroy(gameObject);
-        level.RemoveGem();
-        level.AddCollectedGem(GetComponent<SpriteRenderer>().sprite);
-        Debug.Log(GetComponent<SpriteRenderer>().sprite);
-    }
-
-    private void CountCollectableGems()
-    {
         if (tag == "CollectableGem")
         {
-            level.CountGems();
+            CollectedGem();
+        }
+        else if (tag == "CollectableKey")
+        {
+            CollectedKey();
         }
     }
+
+    private void CollectedGem()
+    {
+        // level.RemoveGem();
+        level.AddCollectedGem(GetComponent<SpriteRenderer>().sprite);
+    }
+
+    private void CollectedKey()
+    {
+        Sprite key = GetComponent<SpriteRenderer>().sprite;
+        // level.RemoveKey();
+        level.AddCollectedKey(key);
+        level.UnlockLock(key);
+    }
+
+    // private void CountCollectableGems()
+    // {
+    //     if (tag == "CollectableGem")
+    //     {
+    //         level.CountGems();
+    //     }
+    //     if (tag == "CollectableKey")
+    //     {
+    //         level.CountKeys();
+    //     }
+    // }
 }
