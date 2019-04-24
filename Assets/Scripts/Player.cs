@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     bool grounded = false;
     bool movingRight = true;
     bool canClimb = false;
+    bool climbing = false;
 
     // bool hitWall = false;
     Rigidbody2D rigidBody;
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
         }
         else if (canClimb && vertical != 0)
         {
+            climbing = true;
             MoveVertical();
             MoveHorizontal();
             animator.SetInteger("Action", 3);
@@ -75,6 +77,7 @@ public class Player : MonoBehaviour
 
     private void MoveHorizontal()
     {
+        climbing = false;
         var deltaX = Input.GetAxis("Horizontal") * speed;
         var movement = deltaX *= Time.deltaTime;
         transform.Translate(movement, 0, 0);
@@ -85,8 +88,9 @@ public class Player : MonoBehaviour
         {
             rigidBody.AddForce(new Vector3(0, 6, 0), ForceMode2D.Impulse);
         }
-        else if (canClimb)
+        else if (canClimb && climbing)
         {
+            rigidBody.gravityScale = 0;
             var deltaY = Input.GetAxis("Vertical");
             var newYPos = transform.position.y + deltaY / 10;
             transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
@@ -114,7 +118,6 @@ public class Player : MonoBehaviour
 
     public void ClimbingLadder()
     {
-        rigidBody.gravityScale = 0;
         rigidBody.velocity = new Vector2(0,0);
         canClimb = true;
     }
