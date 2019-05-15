@@ -50,6 +50,10 @@ public class Player : MonoBehaviour
             movingRight = false;
             animator.SetInteger("Action", 5);
         }
+        else if (climbing && vertical == 0)
+        {
+            animator.SetInteger("Action", 6);
+        }
         else if (vertical == 0 && horizontal == 0)
         {
            animator.SetInteger("Action", 0);
@@ -124,7 +128,7 @@ public class Player : MonoBehaviour
 
     public void LeavingLadder()
     {
-        GetComponent<Rigidbody2D>().gravityScale = 1;
+        rigidBody.gravityScale = 1;
         canClimb = false;
     }
 }
