@@ -15,6 +15,10 @@ public class Level : MonoBehaviour
 
     [SerializeField] Lock[] availableLocks;
 
+    [SerializeField] GameObject[] healthTracker;
+
+    [SerializeField] Sprite[] availableHealth;
+
     // public void CountGems()
     // {
     //     collectableGems++;
@@ -66,5 +70,10 @@ public class Level : MonoBehaviour
                availableLocks[i].UnlockLock();
            }
        }
+    }
+
+    public void ReduceHealth()
+    {
+        
     }
 }
