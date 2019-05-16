@@ -86,7 +86,7 @@ public class Level : MonoBehaviour
         {
             currentHeartIndex = 1;
         }
-        if (healthReduced >= 5)
+        if (healthReduced > 5)
         {
             currentHeartIndex = 2;
         }
