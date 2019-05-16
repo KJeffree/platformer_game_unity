@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(climbing);
         // MoveVertical();
         // MoveHorizontal();
 
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
             MoveVertical();
             MoveHorizontal();
             movingRight = true;
+            climbing = false;
             animator.SetInteger("Action", 4);
         }
         else if (!grounded && !movingRight && !canClimb)
@@ -48,11 +51,14 @@ public class Player : MonoBehaviour
             MoveVertical();
             MoveHorizontal();
             movingRight = false;
+            climbing = false;
             animator.SetInteger("Action", 5);
         }
         else if (climbing && vertical == 0)
         {
             animator.SetInteger("Action", 6);
+            MoveHorizontal();
+
         }
         else if (vertical == 0 && horizontal == 0)
         {
@@ -62,12 +68,14 @@ public class Player : MonoBehaviour
         {
             MoveHorizontal();
             movingRight = true;
+            climbing = false;
             animator.SetInteger("Action", 1);
         }
         else if (vertical == 0 && horizontal < 0)
         {
             MoveHorizontal();
             movingRight = false;
+            climbing = false;
             animator.SetInteger("Action", 2);
         }
         else if (canClimb && vertical != 0)
@@ -81,7 +89,6 @@ public class Player : MonoBehaviour
 
     private void MoveHorizontal()
     {
-        climbing = false;
         var deltaX = Input.GetAxis("Horizontal") * speed;
         var movement = deltaX *= Time.deltaTime;
         transform.Translate(movement, 0, 0);
@@ -130,5 +137,7 @@ public class Player : MonoBehaviour
     {
         rigidBody.gravityScale = 1;
         canClimb = false;
+        climbing = false;
+
     }
 }
