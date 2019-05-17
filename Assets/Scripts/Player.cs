@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     bool canClimb = false;
     bool climbing = false;
 
+    bool isDamaged = false;
+
     // bool hitWall = false;
     Rigidbody2D rigidBody;
 
@@ -45,6 +47,18 @@ public class Player : MonoBehaviour
             movingRight = true;
             climbing = false;
             animator.SetInteger("Action", 4);
+        }
+        else if (isDamaged && movingRight)
+        {
+            MoveVertical();
+            MoveHorizontal();
+            animator.SetInteger("Action", 7);
+        }
+        else if (isDamaged && !movingRight)
+        {
+            MoveVertical();
+            MoveHorizontal();
+            animator.SetInteger("Action", 8);
         }
         else if (!grounded && !movingRight && !canClimb)
         {
@@ -87,6 +101,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Damage()
+    {
+        isDamaged = true;
+    }
+
     private void MoveHorizontal()
     {
         var deltaX = Input.GetAxis("Horizontal") * speed;
@@ -116,6 +135,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         grounded = true;
+        isDamaged = false;
         animator.SetInteger("Action", 0);
     }
 
