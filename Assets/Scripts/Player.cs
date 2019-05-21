@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(climbing);
+        // Debug.Log(isDamaged);
         // MoveVertical();
         // MoveHorizontal();
 
@@ -40,15 +40,8 @@ public class Player : MonoBehaviour
         }
         var horizontal = Input.GetAxis("Horizontal");
 
-        if (!grounded && movingRight && !canClimb)
-        {
-            MoveVertical();
-            MoveHorizontal();
-            movingRight = true;
-            climbing = false;
-            animator.SetInteger("Action", 4);
-        }
-        else if (isDamaged && movingRight)
+        
+        if (isDamaged && movingRight)
         {
             MoveVertical();
             MoveHorizontal();
@@ -59,6 +52,14 @@ public class Player : MonoBehaviour
             MoveVertical();
             MoveHorizontal();
             animator.SetInteger("Action", 8);
+        }
+        else if (!grounded && movingRight && !canClimb)
+        {
+            MoveVertical();
+            MoveHorizontal();
+            movingRight = true;
+            climbing = false;
+            animator.SetInteger("Action", 4);
         }
         else if (!grounded && !movingRight && !canClimb)
         {
@@ -104,6 +105,7 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         isDamaged = true;
+        AddForce();
     }
 
     private void MoveHorizontal()
@@ -137,6 +139,11 @@ public class Player : MonoBehaviour
         grounded = true;
         isDamaged = false;
         animator.SetInteger("Action", 0);
+    }
+
+    public void AddForce()
+    {
+        rigidBody.AddForce(new Vector3(0,6,0), ForceMode2D.Impulse);
     }
 
     private void OnCollisionExit2D(Collision2D collision)

@@ -19,6 +19,11 @@ public class Grass : MonoBehaviour
 
     // private void OnCollisionEnter2D(Collision2D collision)
     // {
+    //     player.CollidedWithGrass();
+    // }
+
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
     //     Collider2D collider = collision.collider;
 
     //     Vector3 contactPoint = collision.contacts[0].point;
