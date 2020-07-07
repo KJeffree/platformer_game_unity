@@ -25,18 +25,12 @@ public class Collectable : MonoBehaviour
         Destroy(gameObject);
         if (tag == "CollectableGem")
         {
-            CollectedGem();
+            level.AddCollectedGem(GetComponent<SpriteRenderer>().sprite);
         }
         else if (tag == "CollectableKey")
         {
             CollectedKey();
         }
-    }
-
-    private void CollectedGem()
-    {
-        // level.RemoveGem();
-        level.AddCollectedGem(GetComponent<SpriteRenderer>().sprite);
     }
 
     private void CollectedKey()
