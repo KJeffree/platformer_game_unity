@@ -15,4 +15,9 @@ public class GameSession : MonoBehaviour
     {
         
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
