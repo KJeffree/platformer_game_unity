@@ -11,4 +11,4 @@ I experimented with gravity, movement, collision and trigger detection, animatio
 - When player picks up a key, the door of the corresponding colour will disappear or 'unlock.
 
 #### To play:
-To play the game on a Mac, clone the repo, and open up the Application named "Platformer Standalone Build". Select the resolution of 2880 x 1800 (should already be selected) and click Play!
+To play the game on a Mac, clone the repo, and open up the Application named "Platformer Standalone Build". To quit the game, press the escape key.
