@@ -105,7 +105,15 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         isDamaged = true;
+        StartCoroutine(StopFlashingRedAfterSeconds(1));
         AddForce();
+    }
+
+    IEnumerator StopFlashingRedAfterSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        isDamaged = false;
     }
 
     private void MoveHorizontal()
@@ -137,7 +145,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         grounded = true;
-        isDamaged = false;
+        // isDamaged = false;
         animator.SetInteger("Action", 0);
     }
 
